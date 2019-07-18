@@ -23,7 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')1#u(lo-foa-k!@k6deyh_=_^=!qbgm1&96gx-%*n0_o8+i!bn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+if os.environ['DJANGO_ENV'] == "pro":
+    DEBUG = False
+else:
+    DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '52.193.251.60']
 
@@ -31,6 +34,7 @@ ALLOWED_HOSTS = ['localhost', '52.193.251.60']
 # Application definition
 
 INSTALLED_APPS = [
+    'restapi.apps.RestapiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,6 +85,9 @@ DATABASES = {
         'PASSWORD': 'hidetoshi0424',
         'HOST': '127.0.0.1',
         'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
