@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['localhost', '52.193.251.60']
 
 INSTALLED_APPS = [
     'restapi.apps.RestapiConfig',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
