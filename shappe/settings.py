@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '52.193.251.60',
     '127.0.0.1',
-    '*.quesgen.work',
+    'quesgen.work',
     ]
 
 
