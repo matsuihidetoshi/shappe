@@ -28,7 +28,12 @@ if os.environ['DJANGO_ENV'] == "pro":
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '52.193.251.60', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'localhost',
+    '52.193.251.60',
+    '127.0.0.1',
+    '*.quesgen.work',
+    ]
 
 
 # Application definition
