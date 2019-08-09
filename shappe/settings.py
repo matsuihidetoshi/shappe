@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'shappe_db',
         'USER': 'root',
-        'PASSWORD': 'hidetoshi0424',
+        'PASSWORD': os.environ['MYSQL_AUTH'],
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
