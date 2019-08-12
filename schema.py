@@ -1,8 +1,8 @@
 import graphene
-import questions.schema
+import restapi.schema
 
 
-class Query(questions.schema.Query,
+class Query(restapi.schema.Query,
             graphene.ObjectType):
     pass
 

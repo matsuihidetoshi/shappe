@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+"""Commented out for graphql
 from django.contrib import admin
 from django.urls import path, include
 
@@ -21,4 +22,15 @@ from restapi.urls import router as restapi_router
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(restapi_router.urls)),
+]
+"""
+
+from django.conf.urls import include, url
+from django.contrib import admin
+from graphene_django.views import GraphQLView
+
+
+urlpatterns = [
+    url(r'^graphql/', GraphQLView.as_view(graphiql=True)),  # <- graphql_sample
+    url(r'^admin/', admin.site.urls),
 ]

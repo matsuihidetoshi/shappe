@@ -1,12 +1,15 @@
 import graphene
-from graphene_django import DjangoObjectType
-from questions.models import Question
+from graphene_django.types import DjangoObjectType
+from .models import Question
 
 
-class Item(DjangoObjectType):
+class QuestionType(DjangoObjectType):
     class Meta:
         model = Question
 
 
-class Query(graphene.ObjectType):
-    questions = graphene.List(Item)
+class Query:
+    all_questions = graphene.List(QuestionType)
+
+    def resolve_all_questions(self, info, **kwargs):
+        return Question.objects.all()
