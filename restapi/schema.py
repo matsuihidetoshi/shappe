@@ -1,7 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 from .models import Question
-import numpy as np
 
 class QuestionType(DjangoObjectType):
     class Meta:
@@ -104,19 +103,45 @@ class UpdateQuestion(graphene.Mutation):
         question.option_5 = option5
         question.result_5 = result5
 
-        results = np.array([result1, result2, result3, result4, result5])
-        sum = results.sum()
-        sum = 1 if sum == 0 else sum
-
-        question.ratio_1 = (result1 / sum) * 100
-        question.ratio_2 = (result2 / sum) * 100
-        question.ratio_3 = (result3 / sum) * 100
-        question.ratio_4 = (result4 / sum) * 100
-        question.ratio_5 = (result5 / sum) * 100
-
-        question.save()
+        question.calculate_ratio(
+            result1, result2, result3,
+            result4, result5
+            )
         return UpdateQuestion(question=question)
+
+class PostQuestion(graphene.Mutation):
+    class Arguments:
+        id = graphene.Int()
+        option = graphene.Int()
+
+    question = graphene.Field(lambda: QuestionType)
+
+    def mutate(self, info, id, option):
+        question = Question.objects.filter(id=id).first()
+        if option == 1:
+            question.result_1 += 1
+        elif option == 2:
+            question.result_2 += 1
+        elif option == 3:
+            question.result_3 += 1
+        elif option == 4:
+            question.result_4 += 1
+        elif option == 5:
+            question.result_5 += 1
+        
+        question.calculate_ratio(
+            question.result_1,
+            question.result_2,
+            question.result_3,
+            question.result_4,
+            question.result_5
+            )
+        return PostQuestion(question=question)
+
+
+
 
 class Mutation(graphene.ObjectType):
     create_question = CreateQuestion.Field()
     update_question = UpdateQuestion.Field()
+    post_question = PostQuestion.Field()

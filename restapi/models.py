@@ -1,4 +1,5 @@
 from django.db import models
+import numpy as np
 
 class Question(models.Model):
   title = models.CharField(max_length=512)
@@ -21,3 +22,20 @@ class Question(models.Model):
 
   def __str__(self):
         return self.title
+
+  def calculate_ratio(
+    self, result1, result2,
+    result3, result4, result5
+    ):
+        results = np.array([result1, result2, result3, result4, result5])
+        sum = results.sum()
+        sum = 1 if sum == 0 else sum
+
+        self.ratio_1 = (result1 / sum) * 100
+        self.ratio_2 = (result2 / sum) * 100
+        self.ratio_3 = (result3 / sum) * 100
+        self.ratio_4 = (result4 / sum) * 100
+        self.ratio_5 = (result5 / sum) * 100
+
+        self.save()
+        return
