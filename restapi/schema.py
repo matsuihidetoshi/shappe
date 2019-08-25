@@ -33,33 +33,24 @@ class CreateQuestion(graphene.Mutation):
         title = graphene.String()
         content = graphene.String()
         option1 = graphene.String()
-        result1 = graphene.Int()
         option2 = graphene.String()
-        result2 = graphene.Int()
         option3 = graphene.String()
-        result3 = graphene.Int()
         option4 = graphene.String()
-        result4 = graphene.Int()
         option5 = graphene.String()
-        result5 = graphene.Int()
 
     question = graphene.Field(lambda: QuestionType)
 
     def mutate(
         self, info, title, content,
-        option1, result1,
-        option2, result2,
-        option3, result3,
-        option4, result4,
-        option5, result5,
+        option1, option2, option3, option4, option5
         ):
         question = Question.objects.create(
             title=title, content=content,
-            option_1=option1, result_1=result1,
-            option_2=option2, result_2=result2,
-            option_3=option3, result_3=result3,
-            option_4=option4, result_4=result4,
-            option_5=option5, result_5=result5,
+            option_1=option1,
+            option_2=option2,
+            option_3=option3,
+            option_4=option4,
+            option_5=option5,
             )
         return CreateQuestion(question=question)
 
